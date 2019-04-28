@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Checkout.RecruitmentTest.API.DTOs.Requests;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
@@ -54,13 +55,13 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket", null)).BasketId;
+            _basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket")).BasketId;
         }
 
         private async Task IAddTwoBasketItems()
         {
-            _basketItem1Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{_basketId}", new StringContent(JsonConvert.SerializeObject(_basketItem1)))).BasketItemId;
-            _basketItem2Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{_basketId}", new StringContent(JsonConvert.SerializeObject(_basketItem2)))).BasketItemId;
+            _basketItem1Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{_basketId}", _basketItem1)).BasketItemId;
+            _basketItem2Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{_basketId}",_basketItem2)).BasketItemId;
         }
 
         private async Task IGetTheBasket()
