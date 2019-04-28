@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Checkout.RecruitmentTest.API.Data;
+using Checkout.RecruitmentTest.API.DomainExceptions;
 using MediatR;
 
 namespace Checkout.RecruitmentTest.API.Handlers.Commands
@@ -28,6 +30,11 @@ namespace Checkout.RecruitmentTest.API.Handlers.Commands
         public async Task<Guid> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
         {
             var basketItemId = Guid.NewGuid();
+
+            var existingBasketItem = _basketDataStore[request.BasketId].FirstOrDefault(x => x.Ref == request.Ref);
+            if (existingBasketItem != null)
+                throw new DuplicateBasketItemException(request.Ref);
+
             _basketDataStore[request.BasketId].Add(new BasketItem
             {
                 Id = basketItemId,
