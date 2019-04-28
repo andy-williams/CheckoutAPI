@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.RecruitmentTest.API", "Checkout.RecruitmentTest.API\Checkout.RecruitmentTest.API.csproj", "{B31210DC-0B89-4194-8011-59F5BBECEAE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.RecruitmentTest.API", "Checkout.RecruitmentTest.API\Checkout.RecruitmentTest.API.csproj", "{B31210DC-0B89-4194-8011-59F5BBECEAE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7515B9B6-311A-4611-9C48-D15577477C3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.RecruitmentTest.API.AcceptanceTests", "tests\Checkout.RecruitmentTest.API.AcceptanceTests\Checkout.RecruitmentTest.API.AcceptanceTests.csproj", "{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{B31210DC-0B89-4194-8011-59F5BBECEAE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B31210DC-0B89-4194-8011-59F5BBECEAE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B31210DC-0B89-4194-8011-59F5BBECEAE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25} = {7515B9B6-311A-4611-9C48-D15577477C3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8E5CFE88-D5B9-4C3D-9FE9-15E03777EF31}
