@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Checkout.RecruitmentTest.API.DTOs.Requests;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
@@ -37,21 +38,46 @@ namespace Checkout.RecruitmentTest.API.Controllers
         [HttpPost("{basketId:guid}")]
         public async Task<IActionResult> AddBasketItem(Guid basketId, [FromBody] AddBasketItemRequest basketItem)
         {
-            var basketItemId = await _mediatr.Send(new AddBasketItemCommand
+            if (ModelState.IsValid)
             {
-                BasketId = basketId,
-                Name = basketItem.Name,
-                Price = basketItem.Price,
-                Quantity = basketItem.Quantity
-            });
+                var basketItemId = await _mediatr.Send(new AddBasketItemCommand
+                {
+                    BasketId = basketId,
+                    Name = basketItem.Name,
+                    Price = basketItem.Price,
+                    Quantity = basketItem.Quantity
+                });
 
-            return Ok(new AddBasketItemResponse { BasketItemId = basketItemId });
+                return Ok(new AddBasketItemResponse { BasketItemId = basketItemId });
+            }
+
+            var errorList = ModelState.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+            );
+            return BadRequest(errorList);
+
         }
 
-        [HttpPut("{basketGuid:guid}/{basketItemId:guid}")]
-        public IActionResult UpdateBasketItem(Guid basketId, Guid basketItemGuid, UpdateBasketItemRequest basketItem)
+        [HttpPut("{basketId:guid}/{basketItemId:guid}")]
+        public async Task<IActionResult> UpdateBasketItem(Guid basketId, Guid basketItemId, [FromBody] UpdateBasketItemRequest basketItem)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                await _mediatr.Send(new UpdateBasketItemCommand
+                {
+                    BasketId = basketId,
+                    BasketItemId = basketItemId,
+                    Quantity = basketItem.Quantity
+                });
+                return Ok();
+            }
+
+            var errorList = ModelState.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+            );
+            return BadRequest(errorList);
         }
 
         [HttpDelete("{basketId:guid}/{basketItemId:guid}")]

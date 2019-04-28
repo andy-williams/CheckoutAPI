@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Checkout.RecruitmentTest.API.Handlers.Queries;
 
 namespace Checkout.RecruitmentTest.API.Services
@@ -37,7 +38,8 @@ namespace Checkout.RecruitmentTest.API.Services
 
         public void UpdateBasketItem(Guid basketId, BasketItem updateBasketItem)
         {
-            throw new NotImplementedException();
+            var basketItem = _baskets[basketId].First(x => x.Id == updateBasketItem.Id);
+            basketItem.Quantity = updateBasketItem.Quantity;
         }
 
         public void RemoveBasketItem(Guid basketId, Guid basketItemId)
