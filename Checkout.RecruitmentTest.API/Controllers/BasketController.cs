@@ -43,6 +43,7 @@ namespace Checkout.RecruitmentTest.API.Controllers
                 var basketItemId = await _mediatr.Send(new AddBasketItemCommand
                 {
                     BasketId = basketId,
+                    Ref = basketItem.Ref,
                     Name = basketItem.Name,
                     Price = basketItem.Price,
                     Quantity = basketItem.Quantity

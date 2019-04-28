@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure;
 using Checkout.RecruitmentTest.API.DTOs.Requests;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
 using FluentAssertions;
@@ -28,6 +29,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.RemoveBasketItem
             _basketItem1 = new AddBasketItemRequest
             {
                 Quantity = 2,
+                Ref = "ABC",
                 Name = "Banana",
                 Price = 2.99M,
             };
@@ -35,6 +37,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.RemoveBasketItem
             _basketItem2 = new AddBasketItemRequest
             {
                 Quantity = 1,
+                Ref = "XYZ",
                 Name = "Apple",
                 Price = 4.99M,
             };

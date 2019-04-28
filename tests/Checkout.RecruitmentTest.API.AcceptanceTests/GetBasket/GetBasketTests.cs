@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;

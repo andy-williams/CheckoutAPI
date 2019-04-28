@@ -8,6 +8,9 @@ namespace Checkout.RecruitmentTest.API.DTOs.Requests
         public string Name { get; set; }
 
         [Required]
+        public string Ref { get; set; }
+
+        [Required]
         [Range(0.01D, double.MaxValue)]
         public decimal Price { get; set; }
 

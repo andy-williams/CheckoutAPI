@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure;
 using Checkout.RecruitmentTest.API.DTOs.Requests;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
 using FluentAssertions;
@@ -31,6 +32,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
             _basketItem1 = new AddBasketItemRequest
             {
                 Quantity = 2,
+                Ref = "ABC",
                 Name = "Banana",
                 Price = 2.99M,
             };
@@ -38,6 +40,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
             _basketItem2 = new AddBasketItemRequest
             {
                 Quantity = 1,
+                Ref = "XYZ",
                 Name = "Apple",
                 Price = 4.99M,
             };
@@ -77,12 +80,14 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
                 x.Id == _basketItem1Id
                 && x.Name == _basketItem1.Name
                 && x.Price == _basketItem1.Price
+                && x.Ref == _basketItem1.Ref
                 && x.Quantity == _basketItem1.Quantity
             );
             _getBasketResponse.BasketItems.Should().Contain(x =>
                 x.Id == _basketItem2Id
                 && x.Name == _basketItem2.Name
                 && x.Price == _basketItem2.Price
+                && x.Ref == _basketItem2.Ref
                 && x.Quantity == _basketItem2.Quantity
             );
         }

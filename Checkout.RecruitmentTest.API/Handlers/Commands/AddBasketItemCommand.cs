@@ -13,6 +13,7 @@ namespace Checkout.RecruitmentTest.API.Handlers.Commands
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public string Ref { get; set; }
     }
 
     public class AddBasketItemCommandHandler : IRequestHandler<AddBasketItemCommand, Guid>
@@ -32,6 +33,7 @@ namespace Checkout.RecruitmentTest.API.Handlers.Commands
                 Id = basketItemId,
                 Name = request.Name,
                 Price = request.Price,
+                Ref = request.Ref,
                 Quantity = request.Quantity
             });
             return await Task.FromResult(basketItemId);

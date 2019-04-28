@@ -1,10 +1,9 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Checkout.RecruitmentTest.API.DTOs.Requests;
 using Newtonsoft.Json;
 
-namespace Checkout.RecruitmentTest.API.AcceptanceTests
+namespace Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure
 {
     public class CheckoutHttpClient
     {
@@ -29,6 +28,11 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests
             result.EnsureSuccessStatusCode();
 
             return JsonConvert.DeserializeObject<T>(await result.Content.ReadAsStringAsync());
+        }
+
+        public async Task<HttpResponseMessage> PostAsync(string uri, object body)
+        {
+            return await _httpClient.PostAsync(uri, new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json"));
         }
 
         public async Task<T> GetAsync<T>(string uri)
