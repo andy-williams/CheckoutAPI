@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Checkout.RecruitmentTest.API.Services;
+using Checkout.RecruitmentTest.API.Data;
 using MediatR;
 
 namespace Checkout.RecruitmentTest.API.Handlers.Commands
@@ -11,16 +12,19 @@ namespace Checkout.RecruitmentTest.API.Handlers.Commands
 
     public class CreateBasketCommandHandler : IRequestHandler<CreateBasketCommand, Guid>
     {
-        private readonly IBasketDataStore _basketDataStore;
+        private readonly IDictionary<Guid, IList<BasketItem>> _basketDataStore;
 
-        public CreateBasketCommandHandler(IBasketDataStore basketDataStore)
+        public CreateBasketCommandHandler(IDictionary<Guid, IList<BasketItem>> basketDataStore)
         {
             _basketDataStore = basketDataStore;
         }
 
         public Task<Guid> Handle(CreateBasketCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_basketDataStore.CreateBasket());
+            var newBasketId = Guid.NewGuid();
+            _basketDataStore.Add(newBasketId, new List<BasketItem>());
+
+            return Task.FromResult(newBasketId);
         }
     }
 }

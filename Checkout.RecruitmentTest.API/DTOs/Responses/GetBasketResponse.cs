@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Checkout.RecruitmentTest.API.Services;
+using Checkout.RecruitmentTest.API.Data;
 
 namespace Checkout.RecruitmentTest.API.DTOs.Responses
 {

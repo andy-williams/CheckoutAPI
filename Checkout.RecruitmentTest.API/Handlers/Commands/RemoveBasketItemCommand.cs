@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Checkout.RecruitmentTest.API.Services;
 using MediatR;
+using Checkout.RecruitmentTest.API.Data;
 
 namespace Checkout.RecruitmentTest.API.Controllers
 {
@@ -14,16 +16,17 @@ namespace Checkout.RecruitmentTest.API.Controllers
 
     public class RemoveBasketItemCommandHandler : IRequestHandler<RemoveBasketItemCommand>
     {
-        private readonly IBasketDataStore _dataStore;
+        private readonly IDictionary<Guid, IList<BasketItem>> _basketDataStore;
 
-        public RemoveBasketItemCommandHandler(IBasketDataStore dataStore)
+        public RemoveBasketItemCommandHandler(IDictionary<Guid, IList<BasketItem>> basketDataStore)
         {
-            _dataStore = dataStore;
+            _basketDataStore = basketDataStore;
         }
 
         public async Task<Unit> Handle(RemoveBasketItemCommand request, CancellationToken cancellationToken)
         {
-            _dataStore.RemoveBasketItem(request.BasketId, request.BasketItemId);
+            var basketItem = _basketDataStore[request.BasketId].First(x => x.Id == request.BasketItemId);
+            _basketDataStore[request.BasketId].Remove(basketItem);
             return await Unit.Task;
         }
     }

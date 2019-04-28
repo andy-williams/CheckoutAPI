@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Checkout.RecruitmentTest.API.Services;
+using Checkout.RecruitmentTest.API.Data;
 using MediatR;
 
 namespace Checkout.RecruitmentTest.API.Handlers.Commands
@@ -16,21 +17,24 @@ namespace Checkout.RecruitmentTest.API.Handlers.Commands
 
     public class AddBasketItemCommandHandler : IRequestHandler<AddBasketItemCommand, Guid>
     {
-        private readonly IBasketDataStore _basketDataStore;
+        private readonly IDictionary<Guid, IList<BasketItem>> _basketDataStore;
 
-        public AddBasketItemCommandHandler(IBasketDataStore basketDataStore)
+        public AddBasketItemCommandHandler(IDictionary<Guid, IList<BasketItem>> basketDataStore)
         {
             _basketDataStore = basketDataStore;
         }
 
         public async Task<Guid> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(_basketDataStore.AddBasketItem(request.BasketId, new BasketItem
+            var basketItemId = Guid.NewGuid();
+            _basketDataStore[request.BasketId].Add(new BasketItem
             {
+                Id = basketItemId,
                 Name = request.Name,
                 Price = request.Price,
-                Quantity =  request.Quantity
-            }));
+                Quantity = request.Quantity
+            });
+            return await Task.FromResult(basketItemId);
         }
     }
 }

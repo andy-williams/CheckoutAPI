@@ -1,4 +1,6 @@
-﻿using Checkout.RecruitmentTest.API.Services;
+﻿using System;
+using System.Collections.Generic;
+using Checkout.RecruitmentTest.API.Data;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +28,7 @@ namespace Checkout.RecruitmentTest.API
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver());
 
             services
-                .AddSingleton<IBasketDataStore, BasketDataStore>()
+                .AddSingleton<IDictionary<Guid, IList<BasketItem>>>((ctx) => new Dictionary<Guid, IList<BasketItem>>())
                 .AddMediatR(typeof(Startup).Assembly);
         }
 
