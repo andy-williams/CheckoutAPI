@@ -44,7 +44,8 @@ namespace Checkout.RecruitmentTest.API.Services
 
         public void RemoveBasketItem(Guid basketId, Guid basketItemId)
         {
-            throw new NotImplementedException();
+            var basketItem = _baskets[basketId].First(x => x.Id == basketItemId);
+            _baskets[basketId].Remove(basketItem);
         }
     }
 

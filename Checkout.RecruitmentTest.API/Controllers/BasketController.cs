@@ -81,8 +81,13 @@ namespace Checkout.RecruitmentTest.API.Controllers
         }
 
         [HttpDelete("{basketId:guid}/{basketItemId:guid}")]
-        public IActionResult DeleteBasketItem(Guid basketItemId)
+        public async Task<IActionResult> RemoveBasketItem(Guid basketId, Guid basketItemId)
         {
+            await _mediatr.Send(new RemoveBasketItemCommand
+            {
+                BasketId = basketId,
+                BasketItemId = basketItemId
+            });
             return Ok();
         }
     }

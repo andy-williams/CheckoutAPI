@@ -43,5 +43,10 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests
         {
             return await _httpClient.PutAsync(uri, new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json"));
         }
+
+        public async Task<HttpResponseMessage> DeleteAsync(string uri)
+        {
+            return await _httpClient.DeleteAsync(uri);
+        }
     }
 }
