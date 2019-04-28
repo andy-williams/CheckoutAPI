@@ -49,7 +49,7 @@ namespace Checkout.RecruitmentTest.API.Controllers
         }
 
         [HttpPut("{basketGuid:guid}/{basketItemId:guid}")]
-        public IActionResult UpdateBasketItem(Guid basketId, UpdateBasketItemRequest basketItem)
+        public IActionResult UpdateBasketItem(Guid basketId, Guid basketItemGuid, UpdateBasketItemRequest basketItem)
         {
             return Ok();
         }
