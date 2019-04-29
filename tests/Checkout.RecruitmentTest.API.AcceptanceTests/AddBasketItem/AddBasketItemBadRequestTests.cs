@@ -13,7 +13,7 @@ using Xunit;
 
 namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
 {
-    public class AddItemBadRequestTests
+    public class AddBasketItemBadRequestTests
     {
         private CheckoutHttpClient _client;
 
@@ -22,7 +22,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
 
         private HttpResponseMessage _addBasketItemResponse;
 
-        public AddItemBadRequestTests()
+        public AddBasketItemBadRequestTests()
         {
             var factory = new WebApplicationFactory<Startup>();
             _client = new CheckoutHttpClient(factory.CreateClient());
