@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Checkout.RecruitmentTest.API.Data;
+using Checkout.RecruitmentTest.API.DomainExceptions;
 using MediatR;
 
 namespace Checkout.RecruitmentTest.API.Handlers.Commands
@@ -26,7 +27,15 @@ namespace Checkout.RecruitmentTest.API.Handlers.Commands
 
         public async Task<Unit> Handle(UpdateBasketItemCommand request, CancellationToken cancellationToken)
         {
-            var basketItem = _basketDataStore[request.BasketId].First(x => x.Id == request.BasketItemId);
+            if(!_basketDataStore.ContainsKey(request.BasketId))
+                throw new BasketUnavailableException(request.BasketId);
+
+            var basket = _basketDataStore[request.BasketId];
+            var basketItem = basket.FirstOrDefault(x => x.Id == request.BasketItemId);
+
+            if(basketItem == null)
+                throw new BasketItemUnavailableException(request.BasketId, request.BasketItemId);
+
             basketItem.Quantity = request.Quantity;
 
             return await Unit.Task;

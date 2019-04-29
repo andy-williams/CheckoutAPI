@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Checkout.RecruitmentTest.API.Data;
+using Checkout.RecruitmentTest.API.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,7 +24,7 @@ namespace Checkout.RecruitmentTest.API
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddMvc()
+                .AddMvc(cfg => cfg.Filters.Add<DomainExceptionFilter>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver());
 

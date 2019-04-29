@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Checkout.RecruitmentTest.API.Data;
+using Checkout.RecruitmentTest.API.DomainExceptions;
+using MediatR;
 
-namespace Checkout.RecruitmentTest.API.Controllers
+namespace Checkout.RecruitmentTest.API.Handlers.Commands
 {
     public class RemoveBasketItemCommand : IRequest
     {
@@ -25,10 +26,17 @@ namespace Checkout.RecruitmentTest.API.Controllers
 
         public async Task<Unit> Handle(RemoveBasketItemCommand request, CancellationToken cancellationToken)
         {
-            var basketItem = _basketDataStore[request.BasketId].First(x => x.Id == request.BasketItemId);
+            if(!_basketDataStore.ContainsKey(request.BasketId))
+                throw new BasketUnavailableException(request.BasketId);
+
+            var basket = _basketDataStore[request.BasketId];
+            var basketItem = basket.FirstOrDefault(x => x.Id == request.BasketItemId);
+
+            if (basketItem == null)
+                throw new BasketItemUnavailableException(request.BasketId, request.BasketItemId);
+
             _basketDataStore[request.BasketId].Remove(basketItem);
             return await Unit.Task;
         }
     }
-
 }

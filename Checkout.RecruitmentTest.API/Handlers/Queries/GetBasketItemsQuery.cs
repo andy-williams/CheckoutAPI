@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Checkout.RecruitmentTest.API.Data;
+using Checkout.RecruitmentTest.API.DomainExceptions;
 using MediatR;
 
 namespace Checkout.RecruitmentTest.API.Handlers.Queries
@@ -23,7 +24,7 @@ namespace Checkout.RecruitmentTest.API.Handlers.Queries
 
         public Task<IList<BasketItem>> Handle(GetBasketItemsQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_basketDataStore[request.BasketId]);
+            return Task.FromResult(_basketDataStore.ContainsKey(request.BasketId) ? _basketDataStore[request.BasketId] : throw new BasketUnavailableException(request.BasketId));
         }
     }
 }
