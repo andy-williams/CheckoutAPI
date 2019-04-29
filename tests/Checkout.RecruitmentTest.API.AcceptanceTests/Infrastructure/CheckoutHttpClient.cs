@@ -43,6 +43,11 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure
             return JsonConvert.DeserializeObject<T>(await result.Content.ReadAsStringAsync());
         }
 
+        public async Task<HttpResponseMessage> GetAsync(string uri)
+        {
+            return await _httpClient.GetAsync(uri);
+        }
+
         public async Task<HttpResponseMessage> PutAsync(string uri, object body)
         {
             return await _httpClient.PutAsync(uri, new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json"));

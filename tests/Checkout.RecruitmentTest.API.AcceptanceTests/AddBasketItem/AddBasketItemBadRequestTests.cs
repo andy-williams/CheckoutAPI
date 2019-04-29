@@ -34,7 +34,6 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
                 Name = "Banana",
                 Price = 2.99M,
             };
-
         }
 
         [Fact]
