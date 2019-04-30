@@ -57,7 +57,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.UpdateBasketItem
                 Name = "Banana",
                 Price = 2.99M,
             };
-            var basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket")).BasketId;
+            var basketId = (await _client.PostAsync<CreateBasketResponse>("/basket")).BasketId;
             var basketItem1Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{basketId}", basketItem)).BasketItemId;
 
             var response = await _client.PutAsync($"/basket/{basketId}/{basketItem1Id}", new UpdateBasketItemRequest { Quantity = quantity });
@@ -67,7 +67,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.UpdateBasketItem
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket")).BasketId;
+            _basketId = (await _client.PostAsync<CreateBasketResponse>("/basket")).BasketId;
         }
 
         private async Task TheBasketHasAnItem()

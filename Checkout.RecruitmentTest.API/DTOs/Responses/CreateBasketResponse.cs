@@ -2,7 +2,7 @@
 
 namespace Checkout.RecruitmentTest.API.DTOs.Responses
 {
-    public class BasketCreatedResponse
+    public class CreateBasketResponse
     {
         public Guid BasketId { get; set; }
     }

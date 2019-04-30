@@ -33,7 +33,6 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.RemoveBasketItem
                 Name = "Banana",
                 Price = 2.99M,
             };
-
             _basketItem2 = new AddBasketItemRequest
             {
                 Quantity = 1,
@@ -56,7 +55,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.RemoveBasketItem
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket")).BasketId;
+            _basketId = (await _client.PostAsync<CreateBasketResponse>("/basket")).BasketId;
         }
 
         private async Task TheBasketHasTwoBasketItems()

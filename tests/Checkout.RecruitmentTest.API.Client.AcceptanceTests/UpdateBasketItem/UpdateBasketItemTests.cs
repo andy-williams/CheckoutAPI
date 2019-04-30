@@ -1,52 +1,47 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure;
-using Checkout.RecruitmentTest.API.DTOs.Requests;
+using Checkout.RecruitmentTest.API.Client.Requests;
+using Checkout.RecruitmentTest.API.Client.Responses;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using TestStack.BDDfy;
 using Xunit;
 
-namespace Checkout.RecruitmentTest.API.AcceptanceTests.UpdateBasketItem
+namespace Checkout.RecruitmentTest.API.Client.AcceptanceTests.UpdateBasketItem
 {
     public class UpdateBasketItemTests
     {
-        private CheckoutHttpClient _client;
+        private CheckoutApiClient _client;
         private Guid _basketId;
-        private GetBasketResponse _getBasketResponse;
 
-        private AddBasketItemRequest _basketItem1;
-        private AddBasketItemRequest _basketItem2;
+        private AddBasketItemRequest _basketItem1 = new AddBasketItemRequest
+        {
+            Quantity = 2,
+            Name = "Banana",
+            Ref = "ABC",
+            Price = 3.99M
+        };
+
+        private Guid _item2Id;
+        private AddBasketItemRequest _basketItem2 = new AddBasketItemRequest
+        {
+            Quantity = 3,
+            Name = "Apple",
+            Ref = "XYZ",
+            Price = 2.99M
+        };
+
         private Guid _basketItem1Id;
         private Guid _basketItem2Id;
-        private UpdateBasketItemRequest _updateBasketItem1Request;
+        private UpdateBasketItemRequest _updateBasketItem1Request = new UpdateBasketItemRequest { Quantity = 6 };
+        private GetBasketItemsResponse _getBasketResponse;
 
         public UpdateBasketItemTests()
         {
             var factory = new WebApplicationFactory<Startup>();
-            _client = new CheckoutHttpClient(factory.CreateClient());
-
-            _basketItem1 = new AddBasketItemRequest
-            {
-                Quantity = 2,
-                Ref = "ABC",
-                Name = "Banana",
-                Price = 2.99M,
-            };
-
-            _basketItem2 = new AddBasketItemRequest
-            {
-                Quantity = 1,
-                Ref = "XYZ",
-                Name = "Apple",
-                Price = 4.99M,
-            };
-
-            _updateBasketItem1Request = new UpdateBasketItemRequest
-            {
-                Quantity = 50
-            };
+            var httpClient = factory.CreateClient();
+            _client = new CheckoutApiClient(httpClient);
         }
 
         [Fact]
@@ -62,24 +57,23 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.UpdateBasketItem
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<CreateBasketResponse>("/basket")).BasketId;
+            _basketId = await _client.CreateBasketAsync();
         }
 
         private async Task TheBasketHasTwoBasketItems()
         {
-            _basketItem1Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{_basketId}", _basketItem1)).BasketItemId;
-            _basketItem2Id = (await _client.PostAsync<AddBasketItemResponse>($"/basket/{_basketId}",_basketItem2)).BasketItemId;
+            _basketItem1Id = await _client.AddBasketItemAsync(_basketId, _basketItem1);
+            _basketItem2Id = await _client.AddBasketItemAsync(_basketId, _basketItem2);
         }
 
         private async Task IUpdateItem1()
         {
-            var response = await _client.PutAsync($"/basket/{_basketId}/{_basketItem1Id}", _updateBasketItem1Request);
-            response.EnsureSuccessStatusCode();
+            await _client.UpdateBasketItemAsync(_basketId, _basketItem1Id, _updateBasketItem1Request);
         }
 
         private async Task IGetTheBasket()
         {
-            _getBasketResponse = await _client.GetAsync<GetBasketResponse>($"/basket/{_basketId}");
+            _getBasketResponse = await _client.GetBasketItemsAsync(_basketId);
         }
 
         private void ItReturnsABasketWithItem1Updated()

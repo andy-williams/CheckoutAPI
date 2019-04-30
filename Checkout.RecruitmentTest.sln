@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.RecruitmentTest.AP
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7515B9B6-311A-4611-9C48-D15577477C3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.RecruitmentTest.API.AcceptanceTests", "tests\Checkout.RecruitmentTest.API.AcceptanceTests\Checkout.RecruitmentTest.API.AcceptanceTests.csproj", "{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.RecruitmentTest.API.AcceptanceTests", "tests\Checkout.RecruitmentTest.API.AcceptanceTests\Checkout.RecruitmentTest.API.AcceptanceTests.csproj", "{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.RecruitmentTest.API.Client", "Checkout.RecruitmentTest.API.Client\Checkout.RecruitmentTest.API.Client.csproj", "{3C21029B-6B9C-41C0-A17C-E2F02E146801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.RecruitmentTest.API.Client.AcceptanceTests", "tests\Checkout.RecruitmentTest.API.Client.AcceptanceTests\Checkout.RecruitmentTest.API.Client.AcceptanceTests.csproj", "{91C296C3-798A-4B85-87F7-97783EF397B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +27,21 @@ Global
 		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C21029B-6B9C-41C0-A17C-E2F02E146801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C21029B-6B9C-41C0-A17C-E2F02E146801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C21029B-6B9C-41C0-A17C-E2F02E146801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C21029B-6B9C-41C0-A17C-E2F02E146801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C296C3-798A-4B85-87F7-97783EF397B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C296C3-798A-4B85-87F7-97783EF397B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C296C3-798A-4B85-87F7-97783EF397B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C296C3-798A-4B85-87F7-97783EF397B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CF5FC98E-8350-4131-9A3D-223BF3B1EB25} = {7515B9B6-311A-4611-9C48-D15577477C3F}
+		{91C296C3-798A-4B85-87F7-97783EF397B1} = {7515B9B6-311A-4611-9C48-D15577477C3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8E5CFE88-D5B9-4C3D-9FE9-15E03777EF31}

@@ -34,7 +34,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.RemoveBasketItem
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket")).BasketId;
+            _basketId = (await _client.PostAsync<CreateBasketResponse>("/basket")).BasketId;
         }
 
         private async Task ITryToRemoveANonExistantBasketItem()

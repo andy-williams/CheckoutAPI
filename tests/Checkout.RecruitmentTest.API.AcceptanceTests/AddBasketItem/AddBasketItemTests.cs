@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure;
 using Checkout.RecruitmentTest.API.DTOs.Requests;
 using Checkout.RecruitmentTest.API.DTOs.Responses;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -58,7 +55,7 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.AddBasketItem
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<BasketCreatedResponse>("/basket")).BasketId;
+            _basketId = (await _client.PostAsync<CreateBasketResponse>("/basket")).BasketId;
         }
 
         private async Task IAddTwoBasketItems()

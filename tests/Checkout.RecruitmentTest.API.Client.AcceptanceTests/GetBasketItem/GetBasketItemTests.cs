@@ -1,24 +1,26 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
-using Checkout.RecruitmentTest.API.AcceptanceTests.Infrastructure;
-using Checkout.RecruitmentTest.API.DTOs.Responses;
+using Checkout.RecruitmentTest.API.Client.Responses;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using TestStack.BDDfy;
 using Xunit;
 
-namespace Checkout.RecruitmentTest.API.AcceptanceTests.GetBasket
+namespace Checkout.RecruitmentTest.API.Client.AcceptanceTests.GetBasketItem
 {
-    public class GetBasketTests
+    public class GetBasketItemTests
     {
-        private CheckoutHttpClient _client;
+        private CheckoutApiClient _client;
         private Guid _basketId;
-        private GetBasketResponse _getBasketResponse;
+        private GetBasketItemsResponse _response;
 
-        public GetBasketTests()
+        public GetBasketItemTests()
         {
             var factory = new WebApplicationFactory<Startup>();
-            _client = new CheckoutHttpClient(factory.CreateClient());
+            var httpClient = factory.CreateClient();
+            _client = new CheckoutApiClient(httpClient);
         }
 
         [Fact]
@@ -32,18 +34,17 @@ namespace Checkout.RecruitmentTest.API.AcceptanceTests.GetBasket
 
         private async Task AnExistingBasket()
         {
-            _basketId = (await _client.PostAsync<CreateBasketResponse>("/basket", null)).BasketId;
+            _basketId = await _client.CreateBasketAsync();
         }
-
 
         private async Task IGetTheBasket()
         {
-            _getBasketResponse = await _client.GetAsync<GetBasketResponse>($"/basket/{_basketId}");
+            _response = await _client.GetBasketItemsAsync(_basketId);
         }
 
         private void ItReturnsAnEmptyBasket()
         {
-            _getBasketResponse.BasketItems.Count.Should().Be(0);
+            _response.BasketItems.Count.Should().Be(0);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Checkout.RecruitmentTest.API.Controllers
         {
             var newBasketId = await _mediatr.Send(new CreateBasketCommand());
 
-            return Ok(new BasketCreatedResponse { BasketId = newBasketId });
+            return Ok(new CreateBasketResponse { BasketId = newBasketId });
         }
 
         [HttpGet("{basketId:guid}")]
